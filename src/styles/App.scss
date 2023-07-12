@@ -1,0 +1,486 @@
+$background-color: #526d82;
+$background-color-darker: #405769;
+$background-color-lighter: #628199;
+
+$block-color: #9db2bf;
+$block-color-darker: #8aa1af;
+$block-color-lighter: #b0c3cf;
+
+@mixin shadowMixin($x, $y, $blur, $color) {
+    box-shadow: $x $y $blur $color;
+}
+
+@mixin scrollBarMixin($width, $scrollBgColor, $thumbBgColor) {
+    &::-webkit-scrollbar {
+        width: $width;
+        background-color: $scrollBgColor;
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-button {
+        visibility: hidden;
+        height: 0px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $thumbBgColor;
+        border-radius: 10px;
+    }
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800;900&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: $background-color;
+}
+
+.App {
+    padding: 12px;
+    font-family: "Nunito";
+    height: 100vh;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 5px 10px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: $block-color;
+    color: black;
+    @include shadowMixin(0px, 0px, 8px, black);
+    margin-bottom: 15px;
+
+    .search {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 50%;
+
+        .input_error {
+            border: 2px solid red;
+        }
+
+        input {
+            width: 100%;
+            height: 30px;
+            border-radius: 5px;
+            border: none;
+            padding: 0px 4px;
+            font-family: "Nunito";
+            font-size: 16px;
+            outline: none;
+
+            &::-webkit-search-cancel-button {
+                scale: 1.2;
+                cursor: pointer;
+            }
+        }
+
+        &_results {
+            position: absolute;
+            width: 100%;
+            max-height: 400px;
+            background-color: $block-color;
+            top: 38px;
+            z-index: 5;
+            border-radius: 5px;
+            padding: 0px 0px 0px 5px;
+            overflow-y: auto;
+            @include shadowMixin(0px, 0px, 6px, black);
+            @include scrollBarMixin(8px, $block-color, $background-color);
+
+            &_item {
+                min-height: 40px;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                border-bottom: 1px solid black;
+                padding: 5px 0px;
+                cursor: pointer;
+
+                img {
+                    height: 50px;
+                }
+
+                span {
+                    word-wrap: break-word;
+                    font-weight: 600;
+                }
+
+                &:last-child {
+                    border: none;
+                }
+
+                &:hover {
+                    background-color: $block-color-darker;
+                }
+            }
+        }
+    }
+
+    .svg {
+        fill: none;
+        stroke: #000;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 32px;
+    }
+}
+
+.block {
+    background-color: $block-color;
+    @include shadowMixin(0px, 0px, 8px, black);
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    height: calc(100vh - 89px);
+
+    .members {
+        height: 100%;
+        min-width: 160px;
+        max-width: 160px;
+        overflow-y: auto;
+        // @include scrollBarMixin(6px, transparent, $background-color-darker);
+
+        .member {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+
+            svg {
+                min-width: 24px;
+            }
+
+            span {
+                word-break: break-word;
+            }
+        }
+    }
+
+    .playlist {
+        height: 100%;
+        min-width: 300px;
+        max-width: 300px;
+        overflow-y: auto;
+        // @include scrollBarMixin(6px, transparent, $background-color-darker);
+
+        &_save_load {
+            div {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                justify-content: space-between;
+                padding-bottom: 10px;
+            }
+
+            select,
+            input {
+                width: 100%;
+                height: 30px;
+                border-radius: 5px;
+                border: none;
+                padding: 0px 4px;
+                font-family: "Nunito";
+                font-size: 16px;
+                outline: none;
+            }
+
+            select {
+                appearance: none;
+                background: url("data:image/svg+xml,<svg height='12px' width='12px' viewBox='0 0 16 16' fill='%23000000' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>")
+                    no-repeat;
+                background-position: calc(100% - 10px) center;
+                background-color: white;
+            }
+
+            .input_error {
+                border: 2px solid red;
+            }
+        }
+
+        .video {
+            width: 100%;
+            margin: 0 auto;
+            background-color: $background-color-lighter;
+            @include shadowMixin(0px, 0px, 8px, black);
+            border-radius: 5px;
+            padding: 3px 3px 6px;
+
+            &_description {
+                display: flex;
+                gap: 5px;
+                margin-bottom: 5px;
+
+                .video_pic {
+                    height: 70px;
+                    border-radius: 5px;
+                }
+
+                .video_title {
+                    height: 70px;
+                    overflow-y: auto;
+                    color: white;
+                    text-shadow: 1px 1px 2px black;
+                    word-wrap: break-word;
+                    @include scrollBarMixin(8px, $block-color-darker, $block-color-lighter);
+                }
+            }
+
+            &_control_buttons {
+                display: flex;
+                justify-content: space-evenly;
+
+                a {
+                    height: 30px;
+                }
+            }
+        }
+
+        .selected {
+            background-color: $background-color-darker;
+        }
+    }
+
+    .player {
+        position: relative;
+        height: 100%;
+        flex-grow: 1;
+
+        &_overlay {
+            position: absolute;
+            width: calc(100% - 10px);
+            height: calc(100% - 40px);
+            background-color: red;
+            opacity: 0;
+        }
+
+        iframe {
+            border: none;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        .player_control_buttons {
+            position: relative;
+            height: 40px;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            background-color: $background-color;
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+
+            span {
+                color: white;
+                text-shadow: 1px 1px 2px black;
+            }
+
+            .volume {
+                svg {
+                    display: block;
+                    margin: 0 auto;
+                }
+
+                div {
+                    visibility: hidden;
+                    position: absolute;
+                    bottom: 30px;
+                    left: 5px;
+                    height: 95px;
+                    width: 40px;
+                    border-radius: 10px;
+                    background-color: $block-color;
+                    cursor: default;
+                    @include shadowMixin(0px, 0px, 8px, black);
+                }
+
+                input[type="range"] {
+                    position: absolute;
+                    top: 80%;
+                    left: 50%;
+                    width: 75px;
+                    transform-origin: 0% 50%;
+                    transform: rotate(-90deg);
+                }
+
+                &:hover {
+                    div {
+                        visibility: visible;
+                    }
+                }
+            }
+        }
+
+        input[type="range"] {
+            appearance: none;
+            border-radius: 10px;
+            width: 100%;
+            cursor: pointer;
+
+            &::-webkit-slider-runnable-track {
+                background-color: $block-color;
+                border: 2px solid black;
+                border-radius: 10px;
+                height: 15px;
+            }
+
+            &::-webkit-slider-thumb {
+                appearance: none;
+                height: 21px;
+                position: relative;
+                top: -5px;
+                background-color: $background-color;
+                border: 2px solid black;
+                width: 10px;
+                border-radius: 10px;
+            }
+        }
+    }
+
+    .members,
+    .playlist {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        @include scrollBarMixin(6px, transparent, $background-color-darker);
+
+        .bottom_divider {
+            display: block;
+            border-bottom: 2px solid black;
+        }
+    }
+}
+
+.player_page_button {
+    position: relative;
+    height: 30px;
+    min-width: 50px;
+    border: none;
+    border-radius: 10px;
+    background-color: $block-color;
+    cursor: pointer;
+    @include shadowMixin(0px, 0px, 8px, black);
+
+    svg {
+        height: 30px;
+    }
+
+    &:hover {
+        background-color: $block-color-lighter;
+    }
+}
+
+.room_login {
+    h1 {
+        text-align: center;
+        color: whitesmoke;
+        text-shadow: 1px 1px 3px black;
+        font-size: 40px;
+    }
+
+    .login {
+        min-width: 300px;
+        max-width: 500px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 5px 5px 10px;
+
+        &_inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            &_container {
+                label {
+                    font-size: 18px;
+
+                    .error {
+                        color: #df2935;
+                        font-size: 16px;
+                        font-weight: 700;
+                    }
+                }
+
+                div {
+                    display: flex;
+                    align-items: center;
+                    gap: 5px;
+                }
+
+                input {
+                    display: block;
+                    width: 100%;
+                    height: 30px;
+                    border-radius: 5px;
+                    border: none;
+                    padding: 0px 4px;
+                    font-family: "Nunito";
+                    font-size: 16px;
+                    outline: none;
+                }
+
+                button {
+                    width: 25%;
+                    height: 30px;
+                    font-size: 20px;
+
+                    &:hover {
+                        background-color: $block-color;
+                    }
+                }
+
+                .empty {
+                    border: 2px solid red;
+                    padding: 0px 2px;
+                }
+            }
+        }
+
+        &_buttons {
+            display: flex;
+            justify-content: space-around;
+
+            button {
+                width: 150px;
+                height: 50px;
+                font-size: 22px;
+            }
+        }
+    }
+
+    .main_page_button {
+        border-radius: 10px;
+        background-color: $block-color-lighter;
+        border: none;
+        cursor: pointer;
+        @include shadowMixin(0px, 0px, 8px, black);
+        font-family: "Nunito";
+
+        &:hover {
+            background-color: $block-color;
+        }
+
+        &_error {
+            outline: dashed;
+        }
+    }
+}
