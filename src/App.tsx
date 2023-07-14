@@ -30,11 +30,7 @@ function App() {
                 let url = "https://watch-togerther-server.onrender.com/";
                 // let url = "http://localhost:5000";
 
-                fetch(url)
-                    .then((resp) => {
-                        return resp.json();
-                    })
-                    .then((res) => console.log(res));
+                fetch(url);
             } catch {
                 console.log("fail");
             }
