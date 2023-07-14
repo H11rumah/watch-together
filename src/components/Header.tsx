@@ -57,7 +57,6 @@ const Header: React.FC = () => {
 
                     setResultItems(items);
                     setIsResultsHidden(false);
-                    console.log(result);
                 });
         } else {
             setQueryTextError(true);

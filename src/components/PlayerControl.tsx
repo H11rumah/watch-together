@@ -55,7 +55,7 @@ const PlayerControl: React.FC<PlayerControlProps> = ({
     return (
         <div className="player_control_buttons">
             <button
-                className="player_page_button"
+                className="player_page_button youtube"
                 onClick={() => {
                     if (isEnd && playerRef.current) {
                         socket.send(

@@ -28,6 +28,8 @@ const PlayerPage = () => {
     useEffect(() => {
         window.onbeforeunload = onBeforeUnload;
 
+        socket.onclose = onBeforeUnload;
+
         return () => {
             window.onbeforeunload = null;
         };

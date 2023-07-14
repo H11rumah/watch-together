@@ -4,6 +4,7 @@ import { Outlet } from "react-router-dom";
 import { RootState } from "./redux/store";
 import { setIsConnected, setIsOwner, setRoomId, setUsername } from "./redux/slices/webSlice";
 import { setCurrentItem, setIsPlay, setItems } from "./redux/slices/playerSlice";
+import { useEffect } from "react";
 
 function App() {
     let dispatch = useDispatch();
@@ -22,6 +23,25 @@ function App() {
             })
         );
     };
+
+    // useEffect(() => {
+    //     let interval = setInterval(() => {
+    //         try {
+    //             // let url = "https://watch-togerther-server.onrender.com/";
+    //             let url = "http://localhost:5000";
+
+    //             fetch(url)
+    //                 .then((resp) => {
+    //                     return resp.json();
+    //                 })
+    //                 .then((res) => console.log(res));
+    //         } catch {
+    //             console.log("fail");
+    //         }
+    //     }, 500000);
+
+    //     return () => clearInterval(interval);
+    // }, []);
 
     function leaveTheRoom() {
         socket.send(

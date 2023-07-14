@@ -85,8 +85,6 @@ const RoomLogin: React.FC<RoomLoginProps> = ({
                 break;
 
             case "checkRoom":
-                console.log(parsedMessage.isHaveRoom);
-
                 if (!parsedMessage.isHaveRoom) {
                     navigate("/");
                 }

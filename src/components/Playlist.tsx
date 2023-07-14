@@ -22,14 +22,15 @@ const Playlist: React.FC = () => {
 
     useEffect(() => {
         localStorage.setItem("playlists", JSON.stringify(playlists));
-
-        console.log(playlists);
     }, [playlists]);
 
     function deletePlaylist() {
         let copy = { ...playlists };
 
-        if (selectRef.current) delete copy[selectRef.current.value];
+        if (selectRef.current) {
+            delete copy[selectRef.current.value];
+            selectRef.current.value = "placeholder";
+        }
 
         setPlaylists(copy);
     }

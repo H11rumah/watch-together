@@ -10,7 +10,7 @@ const Members: React.FC = () => {
         <div className="members block">
             <span className="bottom_divider">Members</span>
             {members.map((elem) => (
-                <Member username={elem} />
+                <Member memberUsername={elem} />
             ))}
         </div>
     );

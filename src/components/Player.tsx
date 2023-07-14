@@ -41,8 +41,6 @@ const Player: React.FC = ({}) => {
 
     let debouncedSetSeconds = useCallback(
         debounce((value: number, str: string) => {
-            console.log(str);
-
             setSeconds(value);
         }),
         []

@@ -81,8 +81,13 @@ body {
             outline: none;
 
             &::-webkit-search-cancel-button {
-                scale: 1.2;
                 cursor: pointer;
+                appearance: none;
+                height: 20px;
+                width: 20px;
+                background: url("data:image/svg+xml,<svg height='20px' viewBox='0 0 512 512' width='20px' xmlns='http://www.w3.org/2000/svg'><path d='M437.5,386.6L306.9,256l130.6-130.6c14.1-14.1,14.1-36.8,0-50.9c-14.1-14.1-36.8-14.1-50.9,0L256,205.1L125.4,74.5  c-14.1-14.1-36.8-14.1-50.9,0c-14.1,14.1-14.1,36.8,0,50.9L205.1,256L74.5,386.6c-14.1,14.1-14.1,36.8,0,50.9  c14.1,14.1,36.8,14.1,50.9,0L256,306.9l130.6,130.6c14.1,14.1,36.8,14.1,50.9,0C451.5,423.4,451.5,400.6,437.5,386.6z' /></svg>")
+                    no-repeat;
+                background-position: 100% center;
             }
         }
 
@@ -161,6 +166,7 @@ body {
             display: flex;
             align-items: center;
             gap: 3px;
+            border-radius: 5px;
 
             svg {
                 min-width: 24px;
@@ -169,6 +175,10 @@ body {
             span {
                 word-break: break-word;
             }
+        }
+
+        .selected {
+            background-color: $block-color-darker;
         }
     }
 
@@ -264,7 +274,7 @@ body {
         &_overlay {
             position: absolute;
             width: calc(100% - 10px);
-            height: calc(100% - 40px);
+            height: calc(100% - 50px);
             background-color: red;
             opacity: 0;
         }
@@ -369,6 +379,9 @@ body {
 }
 
 .player_page_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     height: 30px;
     min-width: 50px;
@@ -378,6 +391,10 @@ body {
     cursor: pointer;
     @include shadowMixin(0px, 0px, 8px, black);
 
+    img {
+        height: 18px;
+    }
+
     svg {
         height: 30px;
     }
@@ -386,6 +403,15 @@ body {
         background-color: $block-color-lighter;
     }
 }
+
+// .youtube {
+//     box-shadow: none;
+//     background-color: $background-color;
+
+//     &:hover {
+//         background-color: $background-color;
+//     }
+// }
 
 .room_login {
     h1 {
