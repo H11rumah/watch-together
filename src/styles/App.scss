@@ -308,7 +308,7 @@ body {
                     margin: 0 auto;
                 }
 
-                div {
+                div:first-of-type {
                     visibility: hidden;
                     position: absolute;
                     bottom: 30px;

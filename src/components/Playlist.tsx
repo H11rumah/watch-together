@@ -36,7 +36,7 @@ const Playlist: React.FC = () => {
     }
 
     function loadPlaylist() {
-        if (selectRef.current)
+        if (selectRef.current && selectRef.current.value !== "placeholder")
             socket.send(
                 JSON.stringify({
                     method: "setPlaylist",
