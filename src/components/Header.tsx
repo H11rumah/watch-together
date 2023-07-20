@@ -100,11 +100,12 @@ const Header: React.FC = () => {
                     </svg>
                 </button>
                 <div className="search_results" ref={searchResultsRef} hidden={isResultsHidden}>
-                    {resultItems.map((elem) => (
+                    {resultItems.map((elem, id) => (
                         <SearchResultItem
                             imgUrl={elem.snippet.thumbnails.default.url}
                             title={elem.snippet.title}
                             ytUrl={`https://www.youtube.com/watch?v=${elem.id.videoId}`}
+                            key={id}
                         />
                     ))}
                 </div>
