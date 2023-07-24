@@ -29,6 +29,9 @@ const PlayerPage = () => {
         window.onbeforeunload = onBeforeUnload;
 
         socket.onclose = onBeforeUnload;
+        socket.onerror = (event) => {
+            console.log(event);
+        };
 
         return () => {
             window.onbeforeunload = null;
