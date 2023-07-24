@@ -33,9 +33,9 @@ const PlayerControl: React.FC<PlayerControlProps> = ({
 
     let prevVolume = useRef(volume);
 
-    let currentHours = Math.floor(seconds / 3600);
-    let currentMins = Math.floor(seconds / 60 - currentHours * 60);
-    let currentSecs = +(seconds - currentMins * 60 - currentHours * 3600).toFixed(0);
+    let currentHours = Math.floor(seconds / 3600) || 0;
+    let currentMins = Math.floor(seconds / 60 - currentHours * 60) || 0;
+    let currentSecs = +(seconds - currentMins * 60 - currentHours * 3600).toFixed(0) || 0;
 
     let duration = 0;
 
