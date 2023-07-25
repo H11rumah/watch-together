@@ -102,12 +102,15 @@ const PlayerControl: React.FC<PlayerControlProps> = ({
                     </svg>
                 )}
             </button>
-            <div>
+            <div className="time">
                 <span>
                     {currentHours > 9 ? currentHours : "0" + currentHours}:
                     {currentMins > 9 ? currentMins : "0" + currentMins}:
-                    {currentSecs > 9 ? currentSecs : "0" + currentSecs}/{maxHours > 9 ? maxHours : "0" + maxHours}:
-                    {maxMins > 9 ? maxMins : "0" + maxMins}:{maxSecs > 9 ? maxSecs : "0" + maxSecs}
+                    {currentSecs > 9 ? currentSecs : "0" + currentSecs}/
+                </span>
+                <span>
+                    {maxHours > 9 ? maxHours : "0" + maxHours}:{maxMins > 9 ? maxMins : "0" + maxMins}:
+                    {maxSecs > 9 ? maxSecs : "0" + maxSecs}
                 </span>
             </div>
             <input

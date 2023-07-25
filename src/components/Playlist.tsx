@@ -64,8 +64,8 @@ const Playlist: React.FC = () => {
             <span className="bottom_divider">Playlist</span>
             <div className="playlist_save_load bottom_divider">
                 <div>
-                    <select name="playlist" id="" ref={selectRef}>
-                        <option value="placeholder" disabled selected>
+                    <select name="playlist" defaultValue={"placeholder"} ref={selectRef}>
+                        <option value="placeholder" disabled>
                             Select playlist
                         </option>
                         {Object.keys(playlists).length

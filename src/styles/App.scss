@@ -43,7 +43,7 @@ body {
 .App {
     padding: 12px;
     font-family: "Nunito";
-    height: 100vh;
+    height: auto;
 }
 
 .header {
@@ -253,7 +253,8 @@ body {
 
             &_control_buttons {
                 display: flex;
-                justify-content: space-evenly;
+                justify-content: center;
+                gap: 35px;
 
                 a {
                     height: 30px;
@@ -404,15 +405,6 @@ body {
     }
 }
 
-// .youtube {
-//     box-shadow: none;
-//     background-color: $background-color;
-
-//     &:hover {
-//         background-color: $background-color;
-//     }
-// }
-
 .room_login {
     h1 {
         text-align: center;
@@ -466,6 +458,7 @@ body {
 
                 button {
                     width: 25%;
+                    min-width: 85px;
                     height: 30px;
                     font-size: 20px;
 
@@ -486,7 +479,7 @@ body {
             justify-content: space-around;
 
             button {
-                width: 150px;
+                width: 130px;
                 height: 50px;
                 font-size: 22px;
             }
@@ -504,9 +497,100 @@ body {
         &:hover {
             background-color: $block-color;
         }
+    }
+}
 
-        &_error {
-            outline: dashed;
+@media screen and (max-width: 1000px) {
+    .content {
+        width: 100%;
+        height: auto;
+        flex-wrap: wrap;
+
+        .members,
+        .playlist {
+            height: 400px;
+        }
+
+        .members {
+            flex-grow: 1;
+            max-width: none;
+        }
+
+        .playlist {
+            // flex-grow: 1;
+            // max-width: 780px;
+            // width: 100%;
+            max-width: calc(100vw - 215px);
+
+            .video {
+            }
+        }
+
+        .player {
+            order: -1;
+            width: 100%;
+            height: calc(100vh - 89px);
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .header {
+        .search {
+            &_results {
+                // width: calc(100vw * 0.6);
+            }
+        }
+
+        h1 {
+            font-size: 22px;
+            text-align: center;
+        }
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .header {
+        flex-wrap: wrap;
+        height: 80px;
+        gap: 0px;
+
+        .search {
+            width: 75%;
+        }
+
+        h1 {
+            display: block;
+            width: 100%;
+        }
+    }
+
+    .content {
+        .player {
+            height: calc(100vh - 122px);
+
+            .time {
+                font-size: 14px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .player_page_button {
+                min-width: 35px;
+            }
+
+            .player_control_buttons {
+                .volume {
+                    div:first-of-type {
+                        width: 35px;
+                        left: 0px;
+                    }
+                }
+            }
+        }
+
+        .playlist {
+            max-width: none;
         }
     }
 }
