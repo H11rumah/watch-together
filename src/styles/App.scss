@@ -40,6 +40,14 @@ body {
     background-color: $background-color;
 }
 
+.loading {
+    text-align: center;
+    color: white;
+    font-size: 50px;
+    margin-top: 50px;
+    text-shadow: 1px 1px 2px black;
+}
+
 .App {
     padding: 12px;
     font-family: "Nunito";
@@ -160,7 +168,6 @@ body {
         min-width: 160px;
         max-width: 160px;
         overflow-y: auto;
-        // @include scrollBarMixin(6px, transparent, $background-color-darker);
 
         .member {
             display: flex;
@@ -187,7 +194,6 @@ body {
         min-width: 300px;
         max-width: 300px;
         overflow-y: auto;
-        // @include scrollBarMixin(6px, transparent, $background-color-darker);
 
         &_save_load {
             div {
@@ -517,13 +523,7 @@ body {
         }
 
         .playlist {
-            // flex-grow: 1;
-            // max-width: 780px;
-            // width: 100%;
             max-width: calc(100vw - 215px);
-
-            .video {
-            }
         }
 
         .player {
@@ -536,12 +536,6 @@ body {
 
 @media screen and (max-width: 600px) {
     .header {
-        .search {
-            &_results {
-                // width: calc(100vw * 0.6);
-            }
-        }
-
         h1 {
             font-size: 22px;
             text-align: center;

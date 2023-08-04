@@ -3,11 +3,6 @@ import PlaylistItem from "./PlaylistItem";
 import { RootState } from "../redux/store";
 import { useEffect, useRef, useState } from "react";
 
-type Playlists = {
-    // name: Item[];
-    name: string;
-};
-
 const Playlist: React.FC = () => {
     let items = useSelector((state: RootState) => state.player.items);
 

@@ -57,7 +57,7 @@ function App() {
     }
 
     if (!isConnected) {
-        return <h1>Waiting for server...</h1>;
+        return <h1 className="loading">Waiting for server...</h1>;
     }
 
     return (

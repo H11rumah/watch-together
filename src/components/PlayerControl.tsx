@@ -1,8 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import ReactPlayer from "react-player";
-import { useDispatch } from "react-redux";
 
 type PlayerControlProps = {
     isThumbMove: React.MutableRefObject<boolean>;

@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useParams } from "react-router-dom";
-import ytImg from "../assets/imgs/youtube_social_icon_dark.png";
 
 type PlaylistItemProps = {
     imgUrl: string;
@@ -48,9 +47,6 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ imgUrl, title, ytUrl }) => 
                         <path d="M176 480C148.6 480 128 457.6 128 432v-352c0-25.38 20.4-47.98 48.01-47.98c8.686 0 17.35 2.352 25.02 7.031l288 176C503.3 223.8 512 239.3 512 256s-8.703 32.23-22.97 40.95l-288 176C193.4 477.6 184.7 480 176 480z" />
                     </svg>
                 </button>
-                {/* <button className="player_page_button" title="Play video" onClick={() => setVideo()}>
-                    <img src={ytImg} alt="" />
-                </button> */}
                 <button className="player_page_button" title="Delete video" onClick={() => deleteVideo()}>
                     <svg height="20px" viewBox="0 0 512 512" width="20px" xmlns="http://www.w3.org/2000/svg">
                         <path d="M437.5,386.6L306.9,256l130.6-130.6c14.1-14.1,14.1-36.8,0-50.9c-14.1-14.1-36.8-14.1-50.9,0L256,205.1L125.4,74.5  c-14.1-14.1-36.8-14.1-50.9,0c-14.1,14.1-14.1,36.8,0,50.9L205.1,256L74.5,386.6c-14.1,14.1-14.1,36.8,0,50.9  c14.1,14.1,36.8,14.1,50.9,0L256,306.9l130.6,130.6c14.1,14.1,36.8,14.1,50.9,0C451.5,423.4,451.5,400.6,437.5,386.6z" />
