@@ -292,7 +292,7 @@ body {
             border-top-right-radius: 5px;
         }
 
-        .player_control_buttons {
+        .player_control {
             position: relative;
             height: 40px;
             border-bottom-left-radius: 5px;
@@ -307,6 +307,10 @@ body {
             span {
                 color: white;
                 text-shadow: 1px 1px 2px black;
+            }
+
+            .timeline {
+                touch-action: none;
             }
 
             .volume {
@@ -324,8 +328,13 @@ body {
                     width: 40px;
                     border-radius: 10px;
                     background-color: $block-color;
+                    touch-action: none;
                     cursor: default;
                     @include shadowMixin(0px, 0px, 8px, black);
+                }
+
+                div:last-of-type {
+                    width: 100%;
                 }
 
                 input[type="range"] {
@@ -337,7 +346,8 @@ body {
                     transform: rotate(-90deg);
                 }
 
-                &:hover {
+                &:hover,
+                &:active {
                     div {
                         visibility: visible;
                     }
@@ -573,7 +583,7 @@ body {
                 min-width: 35px;
             }
 
-            .player_control_buttons {
+            .player_control {
                 .volume {
                     div:first-of-type {
                         width: 35px;

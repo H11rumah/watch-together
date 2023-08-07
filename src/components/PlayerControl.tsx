@@ -54,7 +54,7 @@ const PlayerControl: React.FC<PlayerControlProps> = ({
     }
 
     return (
-        <div className="player_control_buttons">
+        <div className="player_control">
             <button
                 className="player_page_button youtube"
                 onClick={() => {
@@ -123,7 +123,7 @@ const PlayerControl: React.FC<PlayerControlProps> = ({
                     setSeconds(+event.target.value);
                     debouncedSetSeconds(+event.target.value, "change");
                 }}
-                onMouseUp={(event) => {
+                onPointerUp={(event) => {
                     let target = event.target as HTMLInputElement;
 
                     socket.send(
@@ -136,7 +136,7 @@ const PlayerControl: React.FC<PlayerControlProps> = ({
 
                     isThumbMove.current = false;
                 }}
-                onMouseDown={() => {
+                onPointerDown={() => {
                     isThumbMove.current = true;
                 }}
             />
@@ -186,12 +186,13 @@ const PlayerControl: React.FC<PlayerControlProps> = ({
                 </div>
                 <div
                     onClick={() => {
-                        if (volume === 0) {
-                            setVolume(prevVolume.current);
-                        } else {
-                            prevVolume.current = volume;
-                            setVolume(0);
-                        }
+                        if (!window.matchMedia("(max-width: 420px)").matches)
+                            if (volume === 0) {
+                                setVolume(prevVolume.current);
+                            } else {
+                                prevVolume.current = volume;
+                                setVolume(0);
+                            }
                     }}
                 >
                     {volume >= 0.5 ? (
