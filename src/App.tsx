@@ -26,18 +26,31 @@ function App() {
 
     useEffect(() => {
         let interval = setInterval(() => {
-            try {
-                let url = "https://watch-togerther-server.onrender.com/";
-                // let url = "http://localhost:5000";
+            let url = "https://watch-togerther-server.onrender.com/";
 
-                fetch(url);
-            } catch {
-                console.log("fail");
-            }
+            fetch(url).catch((error) => {});
         }, 10000);
 
         return () => clearInterval(interval);
     }, []);
+
+    let onBeforeUnload = () => {
+        leaveTheRoom();
+    };
+
+    useEffect(() => {
+        window.onbeforeunload = onBeforeUnload;
+
+        socket.onclose = onBeforeUnload;
+
+        socket.onerror = (event) => {
+            console.log(event);
+        };
+
+        return () => {
+            window.onbeforeunload = null;
+        };
+    }, [username]);
 
     function leaveTheRoom() {
         socket.send(

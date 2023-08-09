@@ -51,10 +51,20 @@ const Player: React.FC = ({}) => {
 
         switch (parsedMessage.method) {
             case "setVideo":
-                dispatch(setIsPlay(true));
-                dispatch(setIsEnd(false));
+                if (currentItem === parsedMessage.link) {
+                    socket.send(
+                        JSON.stringify({
+                            method: "seekTo",
+                            roomId: roomId,
+                            seconds: 0,
+                        })
+                    );
+                } else {
+                    dispatch(setIsPlay(true));
+                    dispatch(setIsEnd(false));
 
-                dispatch(setCurrentItem(parsedMessage.link));
+                    dispatch(setCurrentItem(parsedMessage.link));
+                }
                 break;
 
             case "play":
@@ -193,7 +203,6 @@ const Player: React.FC = ({}) => {
                 volume={volume}
                 playing={isPlay}
                 controls={false}
-                progressInterval={1000}
                 playbackRate={1}
                 onReady={() => {
                     playerRef.current?.seekTo(0, "seconds");
