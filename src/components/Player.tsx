@@ -51,7 +51,7 @@ const Player: React.FC = ({}) => {
 
         switch (parsedMessage.method) {
             case "setVideo":
-                if (currentItem === parsedMessage.link) {
+                if (currentItem === parsedMessage.url) {
                     socket.send(
                         JSON.stringify({
                             method: "seekTo",
@@ -63,7 +63,7 @@ const Player: React.FC = ({}) => {
                     dispatch(setIsPlay(true));
                     dispatch(setIsEnd(false));
 
-                    dispatch(setCurrentItem(parsedMessage.link));
+                    dispatch(setCurrentItem(parsedMessage.url));
                 }
                 break;
 

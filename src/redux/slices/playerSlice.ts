@@ -5,6 +5,8 @@ export type Item = {
     imgUrl: string;
     title: string;
     ytUrl: string;
+    playlistId: string | null;
+    playlistTitle: string | null;
 };
 
 type PlayerState = {

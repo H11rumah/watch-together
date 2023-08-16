@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import PlaylistItem from "./PlaylistItem";
 import { RootState } from "../redux/store";
 import { useEffect, useRef, useState } from "react";
+import PlaylistItemGroup from "./PlaylistItemGroup";
+import { Item } from "../redux/slices/playerSlice";
 
 const Playlist: React.FC = () => {
     let items = useSelector((state: RootState) => state.player.items);
@@ -54,6 +56,31 @@ const Playlist: React.FC = () => {
         }
     }
 
+    function showItems() {
+        let itemsArr = [];
+
+        for (let i = 0; i < items.length; i++) {
+            if (
+                items[i].playlistId &&
+                (!items[i - 1] || (items[i - 1] && items[i - 1]?.playlistId !== items[i].playlistId))
+            ) {
+                itemsArr.push(
+                    <PlaylistItemGroup
+                        title={items[i].playlistTitle}
+                        items={items.filter((elem) => elem.playlistId === items[i].playlistId)}
+                    />
+                );
+
+                //@ts-ignore
+                i = items.findLastIndex((elem: Item) => elem.playlistId === items[i].playlistId);
+            } else {
+                itemsArr.push(<PlaylistItem {...items[i]} key={items[i].ytUrl + items[i].playlistId} />);
+            }
+        }
+
+        return itemsArr;
+    }
+
     return (
         <div className="playlist block">
             <span className="bottom_divider">Playlist</span>
@@ -102,9 +129,7 @@ const Playlist: React.FC = () => {
                     </button>
                 </div>
             </div>
-            {items.map((elem, id) => {
-                return <PlaylistItem {...elem} key={id} />;
-            })}
+            {showItems()}
         </div>
     );
 };

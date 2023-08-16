@@ -229,7 +229,71 @@ body {
             }
         }
 
-        .video {
+        .item_group {
+            width: 100%;
+            margin: 0 auto;
+            background-color: $background-color-lighter;
+            border-radius: 5px;
+            padding: 3px 3px;
+            @include shadowMixin(0px, 0px, 8px, black);
+
+            &_header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 5px;
+
+                &_title {
+                    color: white;
+                    font-size: 18px;
+                    word-break: break-all;
+                    text-shadow: 1px 1px 2px black;
+                    width: 80%;
+                }
+
+                &_delete,
+                &_arrow {
+                    display: flex;
+                    align-items: center;
+                    cursor: pointer;
+                }
+
+                &_arrow {
+                    transition: all 0.15s ease-in-out;
+                }
+            }
+
+            &_items {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                overflow: hidden;
+                height: 0px;
+
+                .item {
+                    width: 98%;
+
+                    &:first-of-type {
+                        margin-top: 5px;
+                    }
+
+                    &:last-of-type {
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+
+            .rotated {
+                transform: rotate(180deg);
+            }
+
+            .opened {
+                height: auto;
+                overflow: auto;
+            }
+        }
+
+        .item {
             width: 100%;
             margin: 0 auto;
             background-color: $background-color-lighter;
@@ -242,12 +306,12 @@ body {
                 gap: 5px;
                 margin-bottom: 5px;
 
-                .video_pic {
+                .item_pic {
                     height: 70px;
                     border-radius: 5px;
                 }
 
-                .video_title {
+                .item_title {
                     height: 70px;
                     overflow-y: auto;
                     color: white;
@@ -266,6 +330,10 @@ body {
                     height: 30px;
                 }
             }
+        }
+
+        .grouped {
+            width: 95%;
         }
 
         .selected {
@@ -533,7 +601,8 @@ body {
         }
 
         .playlist {
-            max-width: calc(100vw - 215px);
+            width: 100%;
+            min-width: 50%;
         }
 
         .player {
@@ -595,6 +664,11 @@ body {
 
         .playlist {
             max-width: none;
+            order: 1;
+        }
+
+        .members {
+            order: 2;
         }
     }
 }

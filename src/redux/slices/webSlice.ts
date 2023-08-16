@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    // webSocket: new WebSocket("ws://localhost:5000/"),
-    webSocket: new WebSocket("wss://watch-togerther-server.onrender.com/"),
+    webSocket: new WebSocket("ws://localhost:5000/"),
+    // webSocket: new WebSocket("wss://watch-togerther-server.onrender.com/"),
+    apiToken: "AIzaSyDL-IqaQL_C_OnWHnyHeBedVzCTKqDgtms",
     roomId: "",
     username: "",
-    members: ["Test user", "Test user 1", "Test user 2", "Test user 3", "Test user 4"],
+    members: [],
     isOwner: false,
     isConnected: false,
 };

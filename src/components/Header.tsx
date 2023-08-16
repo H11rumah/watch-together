@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import SearchResultItem from "./SearchResultItem";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 type ResultItem = {
     id: {
         videoId: string;
+        playlistId: string;
     };
     snippet: {
         thumbnails: {
@@ -24,11 +27,11 @@ const Header: React.FC = () => {
     let [isResultsHidden, setIsResultsHidden] = useState(true);
     let [resultItems, setResultItems] = useState<ResultItem[]>([]);
 
+    let apiToken = useSelector((state: RootState) => state.web.apiToken);
+
     let searchResultsRef = useRef<HTMLDivElement>(null);
 
     let navigate = useNavigate();
-
-    let apiToken = "AIzaSyDL-IqaQL_C_OnWHnyHeBedVzCTKqDgtms";
 
     let url = new URL("https://www.googleapis.com/youtube/v3/search");
     url.searchParams.append("part", "snippet");
@@ -36,6 +39,8 @@ const Header: React.FC = () => {
     url.searchParams.append("key", apiToken);
     url.searchParams.append("relevanceLanguage", "ru");
     url.searchParams.append("type", "video");
+    url.searchParams.append("type", "playlist");
+    url.searchParams.append("safeSearch", "none");
     url.searchParams.append("videoLicense", "any");
     url.searchParams.append("videoEmbeddable", "any");
     url.searchParams.append("videoSyndicated", "any");
@@ -44,11 +49,25 @@ const Header: React.FC = () => {
 
     function search() {
         if (queryText) {
-            let regex = /https?:\/\/www\.youtube\.com\/watch\?v=.{11}/;
-            let matches = queryText.match(regex);
+            let regexs = [
+                { regex: /https?:\/\/www\.youtube\.com\/watch\?v=.{11}&list=.{34}/, from: 49, to: 83 },
+                { regex: /https?:\/\/www\.youtube\.com\/playlist\?list=.{34}/, from: 38, to: 72 },
+                { regex: /https?:\/\/youtu\.be\/.{11}\?list=.{34}/, from: 34, to: 68 },
+                { regex: /https?:\/\/www\.youtube\.com\/watch\?v=.{11}/, from: 32, to: 42 },
+                { regex: /https?:\/\/youtu\.be\/.{11}/, from: 17, to: 28 },
+            ];
 
-            if (matches) url.searchParams.append("q", matches[0].slice(matches[0].indexOf("=") + 1, 43));
-            else url.searchParams.append("q", queryText);
+            url.searchParams.append("q", queryText);
+
+            for (let i = 0; i < regexs.length; i++) {
+                let matches = queryText.match(regexs[i].regex);
+
+                if (matches) {
+                    url.searchParams.delete("q");
+                    url.searchParams.append("q", matches[0].slice(regexs[i].from, regexs[i].to));
+                    break;
+                }
+            }
 
             fetch(url)
                 .then((response) => response.json())
@@ -75,7 +94,7 @@ const Header: React.FC = () => {
         return () => {
             document.removeEventListener("click", click);
         };
-    });
+    }, []);
 
     return (
         <header className="header">
@@ -91,7 +110,7 @@ const Header: React.FC = () => {
                         setQueryTextError(false);
                     }}
                     onKeyDown={(event) => {
-                        if (event.code === "Enter") search();
+                        if (event.code === "Enter" || event.code === "NumpadEnter") search();
                     }}
                 ></input>
                 <button className="player_page_button" title="Search" onClick={() => search()}>
@@ -100,12 +119,13 @@ const Header: React.FC = () => {
                     </svg>
                 </button>
                 <div className="search_results" ref={searchResultsRef} hidden={isResultsHidden}>
-                    {resultItems.map((elem, id) => (
+                    {resultItems.map((elem, i) => (
                         <SearchResultItem
                             imgUrl={elem.snippet.thumbnails.default.url}
                             title={elem.snippet.title}
-                            ytUrl={`https://www.youtube.com/watch?v=${elem.id.videoId}`}
-                            key={id}
+                            ytId={elem.id.playlistId ?? elem.id.videoId}
+                            playlistTitle={elem.snippet.title}
+                            key={i}
                         />
                     ))}
                 </div>
