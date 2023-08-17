@@ -163,12 +163,12 @@ const Player: React.FC = ({}) => {
         };
     }, [isPlay, isEnd, isOwner]);
 
-    function setVideo(link: string) {
+    function setVideo(url: string) {
         socket.send(
             JSON.stringify({
                 method: "setVideo",
                 roomId: roomId,
-                link: link,
+                url: url,
             })
         );
     }
