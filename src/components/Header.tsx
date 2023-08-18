@@ -53,7 +53,7 @@ const Header: React.FC = () => {
                 { regex: /https?:\/\/www\.youtube\.com\/watch\?v=.{11}&list=.{34}/, from: 49, to: 83 },
                 { regex: /https?:\/\/www\.youtube\.com\/playlist\?list=.{34}/, from: 38, to: 72 },
                 { regex: /https?:\/\/youtu\.be\/.{11}\?list=.{34}/, from: 34, to: 68 },
-                { regex: /https?:\/\/www\.youtube\.com\/watch\?v=.{11}/, from: 32, to: 42 },
+                { regex: /https?:\/\/www\.youtube\.com\/watch\?v=.{11}/, from: 32, to: 43 },
                 { regex: /https?:\/\/youtu\.be\/.{11}/, from: 17, to: 28 },
             ];
 
