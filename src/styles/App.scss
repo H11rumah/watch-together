@@ -230,35 +230,48 @@ body {
         }
 
         .item_group {
+            display: flex;
+            flex-direction: column;
             width: 100%;
             margin: 0 auto;
             background-color: $background-color-lighter;
             border-radius: 5px;
-            padding: 3px 3px;
+            padding: 3px 3px 5px;
             @include shadowMixin(0px, 0px, 8px, black);
 
             &_header {
                 display: flex;
-                justify-content: space-between;
+                justify-content: space-around;
                 align-items: center;
-                gap: 5px;
 
-                &_title {
-                    color: white;
-                    font-size: 18px;
-                    word-break: break-all;
-                    text-shadow: 1px 1px 2px black;
-                    width: 80%;
+                &_controls {
+                    width: 100%;
+
+                    &_title {
+                        color: white;
+                        font-size: 18px;
+                        word-break: break-all;
+                        text-shadow: 1px 1px 2px black;
+                        margin-bottom: 5px;
+                    }
+
+                    &_buttons {
+                        display: flex;
+                        justify-content: center;
+                        gap: 12px;
+
+                        div:first-of-type {
+                            max-width: none;
+                            cursor: auto;
+                            padding: 0px 3px;
+                        }
+                    }
                 }
 
-                &_delete,
                 &_arrow {
                     display: flex;
                     align-items: center;
                     cursor: pointer;
-                }
-
-                &_arrow {
                     transition: all 0.15s ease-in-out;
                 }
             }
@@ -470,6 +483,7 @@ body {
     position: relative;
     height: 30px;
     min-width: 50px;
+    max-width: 50px;
     border: none;
     border-radius: 10px;
     background-color: $block-color;

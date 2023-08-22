@@ -71,7 +71,7 @@ const Playlist: React.FC = () => {
                     />
                 );
 
-                //@ts-ignore
+                // @ts-ignore
                 i = items.findLastIndex((elem: Item) => elem.playlistId === items[i].playlistId);
             } else {
                 itemsArr.push(<PlaylistItem {...items[i]} key={items[i].ytUrl + items[i].playlistId} />);

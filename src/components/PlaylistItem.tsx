@@ -11,15 +11,15 @@ type PlaylistItemProps = {
 
 const PlaylistItem: React.FC<PlaylistItemProps> = ({ imgUrl, title, ytUrl }) => {
     let socket = useSelector((state: RootState) => state.web.webSocket);
-    let currentItem = useSelector((state: RootState) => state.player.currentItem);
+    let roomId = useSelector((state: RootState) => state.web.roomId);
 
-    let params = useParams();
+    let currentItem = useSelector((state: RootState) => state.player.currentItem);
 
     function setVideo() {
         socket.send(
             JSON.stringify({
                 method: "setVideo",
-                roomId: params.roomId,
+                roomId: roomId,
                 url: ytUrl,
             })
         );
@@ -29,7 +29,7 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ imgUrl, title, ytUrl }) => 
         socket.send(
             JSON.stringify({
                 method: "deleteVideo",
-                roomId: params.roomId,
+                roomId: roomId,
                 url: ytUrl,
             })
         );
