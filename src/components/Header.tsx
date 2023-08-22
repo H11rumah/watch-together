@@ -21,7 +21,7 @@ type ResultItem = {
 };
 
 const Header: React.FC = () => {
-    let [queryText, setQueryText] = useState("gold gachi");
+    let [queryText, setQueryText] = useState("");
     let [queryTextError, setQueryTextError] = useState(false);
 
     let [isResultsHidden, setIsResultsHidden] = useState(true);
