@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { useParams } from "react-router-dom";
 
 type PlaylistItemProps = {
     imgUrl: string;
@@ -14,6 +13,8 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ imgUrl, title, ytUrl }) => 
     let roomId = useSelector((state: RootState) => state.web.roomId);
 
     let currentItem = useSelector((state: RootState) => state.player.currentItem);
+
+    let [isTitleOpen, setIsTitleOpen] = useState(false);
 
     function setVideo() {
         socket.send(
@@ -39,7 +40,12 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({ imgUrl, title, ytUrl }) => 
         <div className={ytUrl === currentItem ? "item selected" : "item"}>
             <div className="item_description">
                 <img className="item_pic" src={imgUrl} />
-                <span className="item_title">{title}</span>
+                <span
+                    className={isTitleOpen ? "item_title scrollable" : "item_title"}
+                    onClick={() => setIsTitleOpen((prev) => !prev)}
+                >
+                    {isTitleOpen || title.length <= 52 ? title : title.slice(0, 52) + "..."}
+                </span>
             </div>
             <div className="item_control_buttons">
                 <button className="player_page_button" title="Play video" onClick={() => setVideo()}>
