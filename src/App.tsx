@@ -41,11 +41,13 @@ function App() {
     useEffect(() => {
         window.onbeforeunload = onBeforeUnload;
 
-        socket.onclose = onBeforeUnload;
-
-        socket.onerror = (event) => {
+        socket.addEventListener("close", (event) => {
             console.log(event);
-        };
+        });
+
+        socket.addEventListener("error", (event) => {
+            console.log(event);
+        });
 
         return () => {
             window.onbeforeunload = null;
