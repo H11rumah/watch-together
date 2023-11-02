@@ -2,26 +2,51 @@ import { useDispatch, useSelector } from "react-redux";
 import "./styles/App.scss";
 import { Outlet } from "react-router-dom";
 import { RootState } from "./redux/store";
-import { setIsConnected, setIsOwner, setRoomId, setUsername } from "./redux/slices/webSlice";
+import { setIsConnected, setIsOwner, setPassword, setRoomId, setUsername, setWebSocket } from "./redux/slices/webSlice";
 import { setCurrentItem, setIsPlay, setItems } from "./redux/slices/playerSlice";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 function App() {
     let dispatch = useDispatch();
 
     let socket = useSelector((state: RootState) => state.web.webSocket);
     let roomId = useSelector((state: RootState) => state.web.roomId);
+    let password = useSelector((state: RootState) => state.web.password);
     let username = useSelector((state: RootState) => state.web.username);
     let isConnected = useSelector((state: RootState) => state.web.isConnected);
 
+    let isReconnect = useRef(false);
+
     socket.onopen = () => {
         dispatch(setIsConnected(true));
+        console.log("open");
 
         socket.send(
             JSON.stringify({
                 method: "connection",
             })
         );
+
+        if (isReconnect.current) {
+            isReconnect.current = false;
+
+            socket.send(
+                JSON.stringify({
+                    method: "reconnect",
+                    roomId: roomId,
+                    password: password,
+                    username: username,
+                })
+            );
+        }
+    };
+
+    socket.onclose = () => {
+        console.log("close");
+        dispatch(setIsConnected(false));
+        dispatch(setWebSocket(new WebSocket("ws://localhost:5000/")));
+
+        isReconnect.current = true;
     };
 
     useEffect(() => {
@@ -41,13 +66,13 @@ function App() {
     useEffect(() => {
         window.onbeforeunload = onBeforeUnload;
 
-        socket.addEventListener("close", (event) => {
-            console.log(event);
-        });
+        // socket.addEventListener("close", (event) => {
+        //     console.log(event);
+        // });
 
-        socket.addEventListener("error", (event) => {
-            console.log(event);
-        });
+        // socket.addEventListener("error", (event) => {
+        //     console.log(event);
+        // });
 
         return () => {
             window.onbeforeunload = null;
@@ -65,6 +90,7 @@ function App() {
 
         dispatch(setUsername(""));
         dispatch(setRoomId(""));
+        dispatch(setPassword(""));
         dispatch(setIsOwner(false));
         dispatch(setIsPlay(false));
         dispatch(setCurrentItem(""));

@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    // webSocket: new WebSocket("ws://localhost:5000/"),
-    webSocket: new WebSocket("wss://watch-togerther-server.onrender.com/"),
+    webSocket: new WebSocket("ws://localhost:5000/"),
+    // webSocket: new WebSocket("wss://watch-togerther-server.onrender.com/"),
     apiToken: "AIzaSyDL-IqaQL_C_OnWHnyHeBedVzCTKqDgtms",
     roomId: "",
+    password: "",
     username: "",
     members: [],
     isOwner: false,
@@ -21,6 +22,10 @@ export const webSlice = createSlice({
 
         setRoomId: (state, action) => {
             state.roomId = action.payload;
+        },
+
+        setPassword: (state, action) => {
+            state.password = action.payload;
         },
 
         setUsername: (state, action) => {
@@ -41,6 +46,6 @@ export const webSlice = createSlice({
     },
 });
 
-export const { setWebSocket, setRoomId, setUsername, setMembers, setIsOwner, setIsConnected } = webSlice.actions;
+export const { setWebSocket, setRoomId, setPassword, setUsername, setMembers, setIsOwner, setIsConnected } = webSlice.actions;
 
 export default webSlice.reducer;

@@ -5,14 +5,16 @@ import Playlist from "../components/Playlist";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import { setRoomId } from "../redux/slices/webSlice";
+import { setIsConnected, setRoomId, setWebSocket } from "../redux/slices/webSlice";
 import RoomLogin from "../components/RoomLogin";
+import { useEffect } from "react";
 
-const PlayerPage = () => {
+const PlayerPage: React.FC = () => {
     let params = useParams();
 
     let socket = useSelector((state: RootState) => state.web.webSocket);
     let username = useSelector((state: RootState) => state.web.username);
+    let isConnected = useSelector((state: RootState) => state.web.isConnected);
 
     let dispatch = useDispatch();
 

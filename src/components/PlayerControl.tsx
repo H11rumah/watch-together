@@ -2,6 +2,8 @@ import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import ReactPlayer from "react-player";
+import { useDispatch } from "react-redux";
+import { setWebSocket } from "../redux/slices/webSlice";
 
 type PlayerControlProps = {
     isThumbMove: React.MutableRefObject<boolean>;
@@ -13,15 +15,7 @@ type PlayerControlProps = {
     debouncedSetSeconds: (value: number, str: string) => void;
 };
 
-const PlayerControl: React.FC<PlayerControlProps> = ({
-    isThumbMove,
-    volume,
-    playerRef,
-    seconds,
-    setSeconds,
-    debouncedSetSeconds,
-    setVolume,
-}) => {
+const PlayerControl: React.FC<PlayerControlProps> = ({ isThumbMove, volume, playerRef, seconds, setSeconds, debouncedSetSeconds, setVolume }) => {
     let socket = useSelector((state: RootState) => state.web.webSocket);
     let roomId = useSelector((state: RootState) => state.web.roomId);
     let username = useSelector((state: RootState) => state.web.username);
@@ -103,13 +97,11 @@ const PlayerControl: React.FC<PlayerControlProps> = ({
             </button>
             <div className="time">
                 <span>
-                    {currentHours > 9 ? currentHours : "0" + currentHours}:
-                    {currentMins > 9 ? currentMins : "0" + currentMins}:
+                    {currentHours > 9 ? currentHours : "0" + currentHours}:{currentMins > 9 ? currentMins : "0" + currentMins}:
                     {currentSecs > 9 ? currentSecs : "0" + currentSecs}/
                 </span>
                 <span>
-                    {maxHours > 9 ? maxHours : "0" + maxHours}:{maxMins > 9 ? maxMins : "0" + maxMins}:
-                    {maxSecs > 9 ? maxSecs : "0" + maxSecs}
+                    {maxHours > 9 ? maxHours : "0" + maxHours}:{maxMins > 9 ? maxMins : "0" + maxMins}:{maxSecs > 9 ? maxSecs : "0" + maxSecs}
                 </span>
             </div>
             <input
@@ -144,24 +136,27 @@ const PlayerControl: React.FC<PlayerControlProps> = ({
                 className="player_page_button"
                 title={isRepeatVideo ? "Video is looped" : "Video is not looped"}
                 onClick={() => {
-                    if (isRepeatVideo) {
-                        socket.send(
-                            JSON.stringify({
-                                method: "setIsRepeatVideo",
-                                roomId: roomId,
-                                isRepeatVideo: false,
-                            })
-                        );
-                    } else {
-                        socket.send(
-                            JSON.stringify({
-                                method: "setIsRepeatVideo",
-                                roomId: roomId,
-                                isRepeatVideo: true,
-                            })
-                        );
-                    }
+                    socket.close();
                 }}
+                // onClick={() => {
+                //     if (isRepeatVideo) {
+                //         socket.send(
+                //             JSON.stringify({
+                //                 method: "setIsRepeatVideo",
+                //                 roomId: roomId,
+                //                 isRepeatVideo: false,
+                //             })
+                //         );
+                //     } else {
+                //         socket.send(
+                //             JSON.stringify({
+                //                 method: "setIsRepeatVideo",
+                //                 roomId: roomId,
+                //                 isRepeatVideo: true,
+                //             })
+                //         );
+                //     }
+                // }}
             >
                 {isRepeatVideo ? (
                     <svg width="28px" height="28px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
@@ -175,14 +170,7 @@ const PlayerControl: React.FC<PlayerControlProps> = ({
             </button>
             <div className="player_page_button volume">
                 <div>
-                    <input
-                        type="range"
-                        min="0"
-                        max="1"
-                        step="0.01"
-                        value={volume}
-                        onChange={(event) => setVolume(+event.target.value)}
-                    />
+                    <input type="range" min="0" max="1" step="0.01" value={volume} onChange={(event) => setVolume(+event.target.value)} />
                 </div>
                 <div
                     onClick={() => {

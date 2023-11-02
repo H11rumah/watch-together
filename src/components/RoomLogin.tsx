@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
-import { setIsOwner, setMembers, setRoomId, setUsername } from "../redux/slices/webSlice";
+import { setIsOwner, setMembers, setPassword, setRoomId, setUsername } from "../redux/slices/webSlice";
 import Input from "./Input";
 import { setItems } from "../redux/slices/playerSlice";
 
@@ -111,6 +111,8 @@ const RoomLogin: React.FC<RoomLoginProps> = ({
                 username: usernameInput,
             })
         );
+
+        dispatch(setPassword(passwordInput));
     }
 
     function createRoom() {
@@ -123,6 +125,7 @@ const RoomLogin: React.FC<RoomLoginProps> = ({
             })
         );
 
+        dispatch(setPassword(passwordInput));
         dispatch(setIsOwner(true));
     }
 
