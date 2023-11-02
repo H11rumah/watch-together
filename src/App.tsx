@@ -19,7 +19,6 @@ function App() {
 
     socket.onopen = () => {
         dispatch(setIsConnected(true));
-        console.log("open");
 
         socket.send(
             JSON.stringify({
@@ -42,7 +41,6 @@ function App() {
     };
 
     socket.onclose = () => {
-        console.log("close");
         dispatch(setIsConnected(false));
         dispatch(setWebSocket(new WebSocket("ws://localhost:5000/")));
 
@@ -65,14 +63,6 @@ function App() {
 
     useEffect(() => {
         window.onbeforeunload = onBeforeUnload;
-
-        // socket.addEventListener("close", (event) => {
-        //     console.log(event);
-        // });
-
-        // socket.addEventListener("error", (event) => {
-        //     console.log(event);
-        // });
 
         return () => {
             window.onbeforeunload = null;

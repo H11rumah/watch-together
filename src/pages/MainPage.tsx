@@ -8,10 +8,6 @@ import { setWebSocket } from "../redux/slices/webSlice";
 
 const MainPage: React.FC = () => {
     let leaveTheRoom: Function = useOutletContext();
-    
-    let isConnected = useSelector((state: RootState) => state.web.isConnected);
-
-    let dispatch = useDispatch();
 
     useEffect(() => {
         leaveTheRoom();

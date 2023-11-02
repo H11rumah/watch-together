@@ -2,8 +2,6 @@ import React, { useRef } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import ReactPlayer from "react-player";
-import { useDispatch } from "react-redux";
-import { setWebSocket } from "../redux/slices/webSlice";
 
 type PlayerControlProps = {
     isThumbMove: React.MutableRefObject<boolean>;
@@ -18,7 +16,6 @@ type PlayerControlProps = {
 const PlayerControl: React.FC<PlayerControlProps> = ({ isThumbMove, volume, playerRef, seconds, setSeconds, debouncedSetSeconds, setVolume }) => {
     let socket = useSelector((state: RootState) => state.web.webSocket);
     let roomId = useSelector((state: RootState) => state.web.roomId);
-    let username = useSelector((state: RootState) => state.web.username);
 
     let isPlay = useSelector((state: RootState) => state.player.isPlay);
     let isEnd = useSelector((state: RootState) => state.player.isEnd);
@@ -136,27 +133,24 @@ const PlayerControl: React.FC<PlayerControlProps> = ({ isThumbMove, volume, play
                 className="player_page_button"
                 title={isRepeatVideo ? "Video is looped" : "Video is not looped"}
                 onClick={() => {
-                    socket.close();
+                    if (isRepeatVideo) {
+                        socket.send(
+                            JSON.stringify({
+                                method: "setIsRepeatVideo",
+                                roomId: roomId,
+                                isRepeatVideo: false,
+                            })
+                        );
+                    } else {
+                        socket.send(
+                            JSON.stringify({
+                                method: "setIsRepeatVideo",
+                                roomId: roomId,
+                                isRepeatVideo: true,
+                            })
+                        );
+                    }
                 }}
-                // onClick={() => {
-                //     if (isRepeatVideo) {
-                //         socket.send(
-                //             JSON.stringify({
-                //                 method: "setIsRepeatVideo",
-                //                 roomId: roomId,
-                //                 isRepeatVideo: false,
-                //             })
-                //         );
-                //     } else {
-                //         socket.send(
-                //             JSON.stringify({
-                //                 method: "setIsRepeatVideo",
-                //                 roomId: roomId,
-                //                 isRepeatVideo: true,
-                //             })
-                //         );
-                //     }
-                // }}
             >
                 {isRepeatVideo ? (
                     <svg width="28px" height="28px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
