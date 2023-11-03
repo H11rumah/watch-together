@@ -42,7 +42,7 @@ function App() {
 
     socket.onclose = () => {
         dispatch(setIsConnected(false));
-        dispatch(setWebSocket(new WebSocket("ws://localhost:5000/")));
+        dispatch(setWebSocket(new WebSocket("wss://watch-togerther-server.onrender.com/")));
 
         isReconnect.current = true;
     };

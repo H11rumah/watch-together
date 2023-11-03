@@ -133,23 +133,13 @@ const PlayerControl: React.FC<PlayerControlProps> = ({ isThumbMove, volume, play
                 className="player_page_button"
                 title={isRepeatVideo ? "Video is looped" : "Video is not looped"}
                 onClick={() => {
-                    if (isRepeatVideo) {
-                        socket.send(
-                            JSON.stringify({
-                                method: "setIsRepeatVideo",
-                                roomId: roomId,
-                                isRepeatVideo: false,
-                            })
-                        );
-                    } else {
-                        socket.send(
-                            JSON.stringify({
-                                method: "setIsRepeatVideo",
-                                roomId: roomId,
-                                isRepeatVideo: true,
-                            })
-                        );
-                    }
+                    socket.send(
+                        JSON.stringify({
+                            method: "setIsRepeatVideo",
+                            roomId: roomId,
+                            isRepeatVideo: !isRepeatVideo,
+                        })
+                    );
                 }}
             >
                 {isRepeatVideo ? (
